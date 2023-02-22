@@ -9,21 +9,16 @@
 
 <h2 align="center">Features</h2>
 
-- ✅ Does X and Y
-- ✅ Available as a simple API and simple to use CLI
-- ✅ Just `136 byte` nano sized (ESM, gizpped)
+- ✅ Offers the `@jsheaven/observed` reactive object API
+- ✅ Integrates with `simply-persist` to save on any change
+- ✅ Available as a simple API
+- ✅ Just `354 byte` nano sized (ESM, gizpped)
 - ✅ Tree-shakable and side-effect free
 - ✅ Runs on Windows, Mac, Linux, CI tested
 - ✅ First class TypeScript support
 - ✅ 100% Unit Test coverage
 
-<h2 align="center">Example usage (CLI)</h2>
-
-`npx @jsheaven/store store --foo X`
-
-> You need at least version 18 of [Node.js](https://www.nodejs.org) installed.
-
-<h2 align="center">Example usage (API, as a library)</h2>
+<h2 align="center">Example usage</h2>
 
 <h3 align="center">Setup</h3>
 
@@ -35,8 +30,18 @@
 ```ts
 import { store } from '@jsheaven/store'
 
-const result = await store({
-  foo: 'X',
+export interface MyStore {
+  a: boolean
+  b: number
+  c: {
+    foo: string
+  }
+}
+
+const myStore = await store<MyStore>({
+  name: 'myStore',
+  initialValue: { a: true, b: 1, c: { foo: 'nice!' }} },
+  provider: 'session' // from `simply-persist`; persists to SessionStorage
 })
 ```
 
