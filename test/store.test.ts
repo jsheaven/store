@@ -1,16 +1,10 @@
 import { jest } from '@jest/globals'
-import { SpiedFunction } from 'jest-mock'
 import { store } from '../dist/index.esm'
-import { getStorage } from 'simply-persist'
-import { observed } from '@jsheaven/observed'
 
 describe('store', () => {
   it('is defined', () => {
     expect(store).toBeDefined()
   })
-
-  let getStorageSpy: SpiedFunction<typeof getStorage>
-  let observedSpy: SpiedFunction<typeof observed>
 
   const initialValue = { foo: 'bar' }
   const name = 'test-store'
@@ -90,5 +84,61 @@ describe('store', () => {
     s.b = 123
 
     expect(onSet).toHaveBeenCalledTimes(0)
+  })
+
+  it('reads and persists using middleware functions', async () => {
+    let onSet = jest.fn(() => {})
+    let SetMiddleware = jest.fn(async (key, value: any) => {
+      console.log('SetMiddleware key', key, 'value', value)
+      return { encrypted: value }
+    })
+    let GetMiddleware = jest.fn(async (key, value: any) => {
+      console.log('GetMiddleware key', key, 'value', value)
+      return value.encrypted
+    })
+    const s = await store<{ b: number }>({
+      name: 'crytoFoo',
+      provider: 'memory',
+      persistOptions: {
+        setMiddleware: SetMiddleware as any,
+        getMiddleware: GetMiddleware as any,
+      },
+    })
+
+    s.b = 123
+
+    expect(onSet).toHaveBeenCalledTimes(0)
+    expect(SetMiddleware).toHaveBeenCalledTimes(1)
+    expect(GetMiddleware).toHaveBeenCalledTimes(0)
+    expect(s.b).toEqual(123)
+  })
+
+  it('reads and persists using middleware functions (read after save)', async () => {
+    let onSet = jest.fn(() => {})
+    let SetMiddleware = jest.fn(async (key, value: any) => {
+      // simulate encryption
+      return { encrypted: value }
+    })
+    let GetMiddleware = jest.fn(async (key, value: any) => {
+      // simulate decryption
+      return value.encrypted
+    })
+    const s = await store<{ b: number }>({
+      name: 'crytoFoo',
+      provider: 'memory',
+      persistOptions: {
+        setMiddleware: SetMiddleware as any,
+        getMiddleware: GetMiddleware as any,
+      },
+    })
+
+    expect(s.b).toEqual(123) // has been persisted before
+
+    s.b = 123
+
+    expect(onSet).toHaveBeenCalledTimes(0)
+    expect(SetMiddleware).toHaveBeenCalledTimes(1)
+    expect(GetMiddleware).toHaveBeenCalledTimes(1)
+    expect(s.b).toEqual(123)
   })
 })

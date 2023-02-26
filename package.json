@@ -1,6 +1,6 @@
 {
   "name": "@jsheaven/store",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@jsheaven/observed": "^1.0.4",
-    "simply-persist": "^1.0.4",
+    "simply-persist": "^1.0.6",
     "runtime-info": "^1.0.1"
   }
 }

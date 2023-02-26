@@ -11,8 +11,9 @@
 
 - ✅ Offers the `@jsheaven/observed` reactive object API
 - ✅ Integrates with `simply-persist` to save on any change
+- ✅ Middleware function API allows to hook what is read and written (e.g. for encryption)
 - ✅ Available as a simple API
-- ✅ Just `354 byte` nano sized (ESM, gizpped)
+- ✅ Just `387 byte` nano sized (ESM, gizpped)
 - ✅ Tree-shakable and side-effect free
 - ✅ Runs on Windows, Mac, Linux, CI tested
 - ✅ First class TypeScript support

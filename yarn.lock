@@ -2242,10 +2242,10 @@ signal-exit@^3.0.3, signal-exit@^3.0.7:
   resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.7.tgz"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
-simply-persist@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/simply-persist/-/simply-persist-1.0.4.tgz#ae8cd78e929a582934efdd8872389245143c9fad"
-  integrity sha512-4GTaknCoCrtDfEYprBdKq+NYm22OUrieY0/IW1lxffaiyoTbrPPFtSmJAhVMPE3DyPCceldi74RWknZ9B76AGA==
+simply-persist@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/simply-persist/-/simply-persist-1.0.6.tgz#1bdb441c736047e85887f25a13c631a01726bfec"
+  integrity sha512-c78I5iKvmnDjVO71WrAkFChMEQkozU3DeaLHMqQ8J/64ke7Qnd3TJSAF8vSva/W+BXKfqpnTDJeJgj/3pCivTg==
   dependencies:
     "@upstash/redis" "^1.19.3"
     runtime-info "^1.0.1"
